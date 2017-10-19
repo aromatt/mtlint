@@ -1,0 +1,2 @@
+# mtlint
+Music Theory Linter
