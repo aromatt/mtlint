@@ -1,0 +1,22 @@
+image: golang:1.9.1
+
+stages:
+  - build
+
+variables:
+  REPO_NAME: github.com/aromatt/mtlint
+
+before_script:
+  - go version
+  - echo $CI_BUILD_REF
+  - echo $CI_PROJECT_DIR
+  - ln -s ${CI_PROJECT_DIR}/.ci/dep /usr/bin/dep
+  - mkdir -p $(dirname ${GOPATH}/src/${REPO_NAME})
+  - ln -s ${CI_PROJECT_DIR} ${GOPATH}/src/${REPO_NAME}
+  - cd ${GOPATH}/src/${REPO_NAME}
+
+gobuild:
+  stage: build
+  script:
+    - dep ensure
+    - go build
